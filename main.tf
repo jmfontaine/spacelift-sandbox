@@ -14,7 +14,7 @@ resource "spacelift_stack" "push_info_to_github_pr" {
   name              = "Push information to GitHub PR"
   project_root      = "/push-info-to-github-pr"
   repository        = "spacelift-sandbox"
-  terraform_version = "1.1.4"
+  terraform_version = "1.1.5"
 
   after_init = [<<EOT
 if [ -n "$TF_VAR_spacelift_pull_request_id" ]; then curl -d "{\"body\": \"After init example\"}" -H "Authorization:Token $GITHUB_TOKEN" -s -X POST "https://api.github.com/repos/$TF_VAR_spacelift_repository/issues/$TF_VAR_spacelift_pull_request_id/comments"; fi  
