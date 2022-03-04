@@ -12,3 +12,6 @@ resource "random_uuid" "test4" {
 
 resource "random_uuid" "test5" {
 }
+
+resource "random_uuid" "test7" {
+}
