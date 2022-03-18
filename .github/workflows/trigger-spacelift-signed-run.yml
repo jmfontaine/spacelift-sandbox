@@ -25,8 +25,6 @@ jobs:
             '{"iss": "GitHub Actions", "iat": $iat, "exp": $exp, "sub": $sub, "spacelift_stack": $spacelift_stack}' \
           )
           echo "JWT_CLAIM_SET=$JWT_CLAIM_SET" >> $GITHUB_ENV
-          echo "env.GITHUB_SHA: ${{ env.GITHUB_SHA }}"
-          echo "GITHUB_SHA: $GITHUB_SHA"
       - name: Generate JWT token
         id: jwtGenerator
         uses: morzzz007/github-actions-jwt-generator@1.0.1
@@ -35,4 +33,4 @@ jobs:
           payload: ${{ env.JWT_CLAIM_SET }}
       - name: Trigger signed run
         run: |
-          spacectl stack deploy --id ${{ secrets.SPACELIFT_STACK_ID }} --run-metadata ${{ steps.jwtGenerator.outputs.token }}
+          spacectl stack deploy --id ${{ secrets.SPACELIFT_STACK_ID }} --run-metadata ${{ steps.jwtGenerator.outputs.token }} --sha $GITHUB_SHA
