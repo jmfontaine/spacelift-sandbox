@@ -33,7 +33,7 @@ jobs:
           payload: ${{ env.JWT_CLAIM_SET }}
       - name: Trigger signed run
         run: |
-          STACK_BRANCH = $(spacectl stack show --id ${{ secrets.SPACELIFT_STACK_ID }} --output json | jq -r '.branch')
+          STACK_BRANCH=$(spacectl stack show --id ${{ secrets.SPACELIFT_STACK_ID }} --output json | jq -r '.branch')
           if [[ "$GITHUB_REF_NAME" == "$STACK_BRANCH" ]]; then
               # Trigger a tracked run
               spacectl stack deploy --id ${{ secrets.SPACELIFT_STACK_ID }} --run-metadata ${{ steps.jwtGenerator.outputs.token }} --sha $GITHUB_SHA
