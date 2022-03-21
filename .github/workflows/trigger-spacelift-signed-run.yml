@@ -36,8 +36,12 @@ jobs:
           STACK_BRANCH=$(spacectl stack show --id ${{ secrets.SPACELIFT_STACK_ID }} --output json | jq -r '.branch')
           if [[ "$GITHUB_REF_NAME" == "$STACK_BRANCH" ]]; then
               # Trigger a tracked run
+              echo spacectl stack deploy --id ${{ secrets.SPACELIFT_STACK_ID }} --run-metadata ${{ steps.jwtGenerator.outputs.token }} --sha $GITHUB_SHA
               spacectl stack deploy --id ${{ secrets.SPACELIFT_STACK_ID }} --run-metadata ${{ steps.jwtGenerator.outputs.token }} --sha $GITHUB_SHA
+              echo "Triggered a tracked run"
           else
               # Trigger a proposed run
+              echo spacectl stack preview --id ${{ secrets.SPACELIFT_STACK_ID }} --run-metadata ${{ steps.jwtGenerator.outputs.token }} --sha $GITHUB_SHA
               spacectl stack preview --id ${{ secrets.SPACELIFT_STACK_ID }} --run-metadata ${{ steps.jwtGenerator.outputs.token }} --sha $GITHUB_SHA
+              echo "Triggered a proposed run"
           fi
