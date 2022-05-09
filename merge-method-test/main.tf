@@ -17,3 +17,7 @@ resource "random_string" "random_4" {
 resource "random_string" "random_5" {
   length = 16
 }
+
+resource "random_string" "random_6" {
+  length = 16
+}
